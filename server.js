@@ -9,12 +9,11 @@ App.use(Express.static(__dirname));
 App.use(BodyParser.json());
 App.use(BodyParser.urlencoded({extended:false}));
 
-let dbUrl = 'mongodb://admin:password@ds147668.mlab.com:47668/nodechatapp';
-
+let dbUrl = process.env.MONGOLAB_URI;
 let Message = mongoose.model('message', {
   name: String,
   message: String
-})
+});
 
 App.get('/messages', (req,res) => {
     Message.find({},(err, messages)=>{
